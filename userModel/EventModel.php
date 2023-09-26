@@ -1,6 +1,6 @@
 <?php
 
-require_once("core/index.php");
+require_once("core/core.php");
 
 Class EventModel{
 
@@ -96,6 +96,7 @@ Class EventModel{
         $sql = "DELETE FROM evento WHERE id= :id";
         $stm = $conexion->prepare($sql);
         $stm->bindParam(":id",$id);
+
         if(!$stm->execute())
         {
             throw new Exception("Error al insertar datos");
