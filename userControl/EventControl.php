@@ -1,6 +1,6 @@
 <?php
 require_once("userModel/EventModel.php");   
-Class UserControl{
+Class EventControl{
 
     protected $evento;
 

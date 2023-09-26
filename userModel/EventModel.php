@@ -13,8 +13,8 @@ Class EventModel{
 
     public function findAll(){
        $conexion =  $this->con->con();
-       $stm =  $conexion->prepare("SELECT * FROM evento");
-
+       $sql = "SELECT * FROM evento";
+       $stm =  $conexion->prepare($sql);
        if(!$stm->execute()){
         throw new Exception("error de consulta");
        }else{
@@ -51,14 +51,14 @@ Class EventModel{
         $stm->bindParam(":inicio", $evento->inicio);
         $stm->bindParam(":finalizar", $evento->finalizar);
 
-        if($stm->execute())
+        if(!$stm->execute())
         {   
-            return $evento->id;
             
-            
-        }else{
             throw new Exception("Error al insertar datos");
+            
         }
+            
+       
        
     }
 
