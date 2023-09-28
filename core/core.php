@@ -4,7 +4,7 @@ Class Conectar{
 
     $host = 'localhost'; // Cambia esto a la dirección de tu servidor MySQL
     $dbname = 'calendario'; // Nombre de tu base de datos
-    $username = 'root'; // Nombre de usuario de MySQL
+    $username = 'juanda'; // Nombre de usuario de MySQL
     $password = ''; // Contraseña de MySQL
     
     try {
@@ -16,6 +16,7 @@ Class Conectar{
     }
    }
 }
+
 
 
 

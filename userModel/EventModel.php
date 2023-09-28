@@ -65,6 +65,13 @@ Class EventModel{
     public function update($usuario){
 
         $conexion =  $this->con->con();
+
+        $idexist = $this->verificarExistencia($usuario->id);
+
+        if (!$idexist) {
+            throw new Exception("El registro con ID " . $usuario->id . " no existe en la base de datos.");
+        }
+        
         $sql = "UPDATE evento Set nombre_empresa = :nombre_empresa,
         email= :email ,
         telefono = :telefono , 
@@ -72,7 +79,10 @@ Class EventModel{
         direccion = :direccion , observacion = :observacion , 
         inicio = :inicio , 
         finalizar = :finalizar WHERE id = :id";
+
+       
         $stm = $conexion->prepare($sql);
+        $stm->bindParam(":id",$usuario->id);
         $stm->bindParam(":nombre_empresa",$usuario->nombre_empresa);
         $stm->bindParam(":email",$usuario->email);
         $stm->bindParam(":telefono",$usuario->telefono);
@@ -82,17 +92,30 @@ Class EventModel{
         $stm->bindParam(":inicio",$usuario->inicio);
         $stm->bindParam(":finalizar",$usuario->finalizar);
 
-
-        if(!$stm->execute())
-        {
-            throw new Exception("Error al insertar datos");
+        if (!$stm->execute()) {
+            throw new Exception("Error al preparar la consulta SQL.");
         }
 
+    }
 
+    private function verificarExistencia($id) {
+        $conexion =  $this->con->con();
+        $sql = "SELECT COUNT(*) FROM evento WHERE id = :id";
+        $stm = $conexion->prepare($sql);
+        $stm->bindParam(":id", $id);
+        $stm->execute();
+        $count = $stm->fetchColumn();
+        return ($count > 0);
     }
 
     public function delete($id){
         $conexion = $this->con->con();
+        $exitsId = $this->verificarExistencia($id);
+        if(!$exitsId){
+            
+            throw new Exception("El registro con ID " . $id . " no existe en la base de datos.");
+        }
+
         $sql = "DELETE FROM evento WHERE id= :id";
         $stm = $conexion->prepare($sql);
         $stm->bindParam(":id",$id);
@@ -104,8 +127,5 @@ Class EventModel{
         
     }
 }
-
-
-
 
 ?>
