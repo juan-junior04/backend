@@ -1,4 +1,5 @@
 <?php
+
 require_once("userModel/EventModel.php");   
 Class EventControl{
 
@@ -13,7 +14,7 @@ Class EventControl{
     public function findAll(){
         try{
             $get = $this->evento->findAll();
-            $response = array("response" => $get);
+            $response = $get;
             http_response_code(200);
             echo json_encode($response);
 
