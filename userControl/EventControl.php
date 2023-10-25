@@ -59,7 +59,8 @@ Class EventControl{
     public function delete($evento):void{
         try{
             $get = $this->evento->delete($evento);
-            $response = array("response" => "eliminado");
+            $valor = $evento;
+            $response = array("response" => $valor);
             echo json_encode($response);
             http_response_code(200);
         }catch(Exception $e){

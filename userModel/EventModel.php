@@ -121,7 +121,7 @@ Class EventModel{
         $sql = "DELETE FROM evento WHERE id= :id";
         $stm = $conexion->prepare($sql);
         $stm->bindParam(":id",$id);
-
+        
         if(!$stm->execute())
         {
             throw new Exception("Error al insertar datos");
