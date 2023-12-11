@@ -1,22 +1,22 @@
 <?php
 
-require_once("userModel/EventModel.php");   
-Class EventControl{
+require_once("userModel/InformeModel.php");   
+Class InformeControl{
 
-    protected $evento;
+    protected $informe;
 
 
     public function __construct(){
-        $this->evento = new EventModel();
+        $this->informe = new InformeModel();
     }
 
 
-    public function findAll(){
-        try{
-            $get = $this->evento->findAll();
-            $response = $get;
+  
 
-            
+    public function findAllInforme(){
+        try{
+            $get = $this->informe->findAllInforme();
+            $response = $get;
             http_response_code(200);
             echo json_encode($response);
 
@@ -26,15 +26,11 @@ Class EventControl{
             echo json_encode($response);
             http_response_code(400);
         }
-       
-
     }
 
- 
-
-    public function save($evento):void{
+    public function saveInforme($informe):void{
         try{
-            $get = $this->evento->save($evento);
+            $get = $this->informe->saveInforme($informe);
             $response = array("response" => "creado");
             echo json_encode($response);
             http_response_code(200);
@@ -46,9 +42,10 @@ Class EventControl{
         }
     }
 
-    public function update($evento):void{
+
+    public function updateInforme($informe):void{
         try{
-            $get = $this->evento->update($evento);
+            $get = $this->informe->updateInforme($informe);
             $response = array("response" => "actualizado");
             echo json_encode($response);
             http_response_code(200);
@@ -60,10 +57,10 @@ Class EventControl{
         }
     }
 
-    public function delete($evento):void{
+    public function deleteInforme($informe):void{
         try{
-            $get = $this->evento->delete($evento);
-            $valor = $evento;
+            $get = $this->informe->deleteInforme($informe);
+            $valor = $informe;
             $response = array("response" => $valor);
             echo json_encode($response);
             http_response_code(200);
@@ -75,16 +72,30 @@ Class EventControl{
         }
     }
 
+   public function findByFecha($fecha) {
+    try {
+
+        $resultados = $this->informe->findByFecha($fecha);
+        $response = array("response" => $resultados);
+        echo json_encode($response);
+        http_response_code(200);
+
+    } catch (Exception $e) {
+        $errorResponse = array("error" => $e->getMessage());
+        echo json_encode($errorResponse);
+        http_response_code(400);
+  
+    }
+}
+
+    }
+    
+    
+    
+
    
 
 
-
-
-
-
-
-
-}
 
 
 

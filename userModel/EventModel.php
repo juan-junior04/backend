@@ -24,6 +24,8 @@ Class EventModel{
        }
     }
 
+    
+
 
     public function save($evento):void{
         $conexion = $this->con->con();
@@ -35,13 +37,14 @@ Class EventModel{
         direccion , 
         observacion , 
         inicio , 
-        finalizar) 
+        finalizar,
+        color,barra,imagen) 
         values(:nombre_empresa,
         :email , :telefono ,
         :nit_empresa ,
         :direccion,
         :observacion,
-        :inicio,:finalizar)";
+        :inicio,:finalizar,:color,:barra,:imagen)";
 
         $stm = $conexion->prepare($sql);
         $stm->bindParam(":nombre_empresa", $evento->nombre_empresa);
@@ -52,6 +55,9 @@ Class EventModel{
         $stm->bindParam(":observacion", $evento->observacion);
         $stm->bindParam(":inicio", $evento->inicio);
         $stm->bindParam(":finalizar", $evento->finalizar);
+        $stm->bindParam(":color", $evento->color);
+        $stm->bindParam(":barra", $evento->barra);
+        $stm->bindParam(":imagen", $evento->imagen);
 
         if(!$stm->execute())
         {   
@@ -80,7 +86,11 @@ Class EventModel{
         nit_empresa= :nit_empresa ,
         direccion = :direccion , observacion = :observacion , 
         inicio = :inicio , 
-        finalizar = :finalizar WHERE id = :id";
+        finalizar = :finalizar, 
+        color = :color,
+        barra = :barra,
+        imagen = :imagen
+         WHERE id = :id";
 
        
         $stm = $conexion->prepare($sql);
@@ -93,6 +103,9 @@ Class EventModel{
         $stm->bindParam(":observacion",$usuario->observacion);
         $stm->bindParam(":inicio",$usuario->inicio);
         $stm->bindParam(":finalizar",$usuario->finalizar);
+        $stm->bindParam(":color", $usuario->color);
+        $stm->bindParam(":barra", $usuario->barra);
+        $stm->bindParam(":imagen", $usuario->imagen);
 
         if (!$stm->execute()) {
             throw new Exception("Error al preparar la consulta SQL.");
